@@ -1,0 +1,3695 @@
+{
+	"info": {
+		"_postman_id": "fa8c43cb-2b60-4dd5-8d55-35edbb6076ac",
+		"name": "NexTestify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LoginPage",
+			"item": [
+				{
+					"name": "validateLogin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57f79352-241d-4eb7-993e-dc8267c0cbf9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 00ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d672ba55-f98c-496f-9459-5f096cfab465",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "3ea41fd3-8514-415b-ac2e-b50373d97ead",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumaran@sankarasoftware.com\",\r\n    \"ipAddress\":\"115.97.66.2\",\r\n    \"password\":\"Thirumaran@555\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "InvalidateLogin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57f79352-241d-4eb7-993e-dc8267c0cbf9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "e8ad3b8e-7762-4205-bb64-e70e8b46cd88",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumarana@sankarasoftware.com\",\r\n    \"ipAddress\":\"115.97.66.2\",\r\n    \"password\":\"Thirumaran@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bcad387e-9716-43cd-abdc-0a5d8561ccef",
+								"exec": [
+									"var jsonData=JSON.parse(responseBody);\r",
+									"pm.environment.set(\"resetToken\",jsonData.resetToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "6c1a587c-a30b-454c-83bb-fe0f8c1e5249",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumaran@yopmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/forgotPassword"
+					},
+					"response": []
+				},
+				{
+					"name": "ValidateToken",
+					"id": "b6fbc661-4072-46df-a6ba-4f73c633287a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"thirumaran@yopmail.com\",\r\n    \"token\": \"{{resetToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateToken"
+					},
+					"response": []
+				}
+			],
+			"id": "57d4b91f-377e-4020-8181-9099ce92c9d6"
+		},
+		{
+			"name": "CreateAdmin",
+			"item": [
+				{
+					"name": "adminRegister",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "db801c05-c358-4c5e-bdb7-c50b1c32e296",
+								"exec": [
+									"var random=Math.random().toString(36).substring(2);\r",
+									"\r",
+									"//Create random mail\r",
+									"var userEmail=\"Thiru\"+random+\"@yopmail.com\";\r",
+									"var userName=\"Thiru\"+random;\r",
+									"\r",
+									"//declare the above variable into globally\r",
+									"pm.environment.set(\"userEmail\",userEmail);\r",
+									"pm.environment.set(\"userName\",userName);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "010fc492-28f9-49fa-8ac9-23166c8691d4",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"adminId\", jsonData.adminId);\r",
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Admin Registered Successfully\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Generated Name\", function () {\r",
+									"  pm.expect(pm.environment.get(\"userName\")).to.be.a.string;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "2e96042a-891d-4f89-a2ed-5681ce22d9ea",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "customerId",
+									"value": "123",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "{{$randomFirstName}}",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{userEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "1478965230",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "abc",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "cde",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "California",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Chennai",
+									"type": "text"
+								},
+								{
+									"key": "usertype",
+									"value": "SA",
+									"type": "text"
+								},
+								{
+									"key": "twoFA",
+									"value": "N",
+									"type": "text"
+								},
+								{
+									"key": "profImage",
+									"type": "file",
+									"fileNotInWorkingDirectoryWarning": "This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.",
+									"filesNotInWorkingDirectory": [
+										"/C:/Users/thirumaran/OneDrive/Pictures/sports-car-burning-explosion-digital-art-4k-wallpaper-uhdpaper.com-536@0@i.jpg"
+									],
+									"src": "/C:/Users/thirumaran/OneDrive/Pictures/sports-car-burning-explosion-digital-art-4k-wallpaper-uhdpaper.com-536@0@i.jpg"
+								},
+								{
+									"key": "timezone",
+									"value": "America/Argentina/Buenos_Aires",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "US",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "HI",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/admin/adminRegister"
+					},
+					"response": []
+				},
+				{
+					"name": "editAdmin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "700e4a80-2eb6-4ce5-9606-4a673c47626e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "64c76938-9e9a-4093-b74a-ba802a4b5603",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "LastName",
+									"value": "Testerss",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/admin/updateAdmins/{{adminId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllAdminUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f4edd8d4-e30b-4d03-b878-f113938f2288",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Admins Found\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "8f4a5d8e-ccaa-4354-95e6-d6b2e981ea0d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.30/OEADMINAPI/admin/getAllAdmins?searchTerm=&Active=&usertype=",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"30"
+							],
+							"path": [
+								"OEADMINAPI",
+								"admin",
+								"getAllAdmins"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": ""
+								},
+								{
+									"key": "Active",
+									"value": ""
+								},
+								{
+									"key": "usertype",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lock User-Try 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "761c6f99-0ea0-4c60-974e-026880134f9e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b0a05e4-1437-4d60-b6e9-fbcdb935a619",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "82644e56-be48-4b4b-a960-ceb0c166edb8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumaran@yopmail.com\",\r\n    \"ipAddress\":\"115.97.66.2\",\r\n    \"password\":\"Thirumaran\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "Lock User-Try 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "761c6f99-0ea0-4c60-974e-026880134f9e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b0a05e4-1437-4d60-b6e9-fbcdb935a619",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "73e89dfb-2a4e-480e-a21a-55c74c3a68ee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumaran@yopmail.com\",\r\n    \"ipAddress\":\"115.97.66.2\",\r\n    \"password\":\"Thirumaran\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "Lock User-Try 3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "761c6f99-0ea0-4c60-974e-026880134f9e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b0a05e4-1437-4d60-b6e9-fbcdb935a619",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "630f59c2-fd6f-4803-b99e-b8f50c2c66ab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumaran@yopmail.com\",\r\n    \"ipAddress\":\"115.97.66.2\",\r\n    \"password\":\"Thirumaran\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "Lock User-Try 4",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "761c6f99-0ea0-4c60-974e-026880134f9e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b0a05e4-1437-4d60-b6e9-fbcdb935a619",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "8c69ba72-bbe7-4d6c-be5e-f6e7e033981c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumaran@yopmail.com\",\r\n    \"ipAddress\":\"115.97.66.2\",\r\n    \"password\":\"Thirumaran\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "Lock User-Try 5",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "761c6f99-0ea0-4c60-974e-026880134f9e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b0a05e4-1437-4d60-b6e9-fbcdb935a619",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "36e80458-ce90-435a-a74a-d883a2e021a5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"thirumaran@yopmail.com\",\r\n    \"ipAddress\":\"115.97.66.2\",\r\n    \"password\":\"Thirumaran\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/Login/validateLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "UnlockAdmin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "723020ee-0c71-420e-b97d-ae1c1362c9f2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5e0af8d9-0707-4bb7-8bd3-4648ff83132e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "8e153efc-8068-49df-8d36-fbf18db41e94",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"7\",\r\n    \"email\":\"thirumaran@yopmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/admin/unlockAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "UploadProfilePhoto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "952dd002-d60b-46ee-b8e2-7e6a99f8471f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80b95ba6-3a65-4945-9084-056f9978bf2e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "692c1c4d-ee11-44ed-b5ae-f551cf3629c3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profImage",
+									"type": "file",
+									"src": "postman-cloud:///1ef5e540-7f31-4650-810f-41ecaed9be88"
+								}
+							]
+						},
+						"url": "http://192.168.1.30/OEADMINAPI/admin/updateAdmins/{{adminId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProfilePhoto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2b109ca2-3e81-4596-9db0-4bb6cc7d5762",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3dbe1c11-2022-464b-a232-078fe681d66e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "91be5828-5ed4-4bc5-b77e-a7abd353071f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": "http://192.168.1.30/OEADMINAPI/admin/deleteProfImage/{{adminId}}"
+					},
+					"response": []
+				}
+			],
+			"id": "48265ff6-fa64-4051-86eb-b178fc6eec95",
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzMxOWVkMzZkZjEzNmJkYTEzMDgwMSIsImlhdCI6MTczMTQwMjIyMSwiZXhwIjoxNzMxNTc1MDIxfQ.dES-_3AN_DTev9ndmdxvNsFEEzdni2GQ-Gxqk84PJYg"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "086449b2-cba0-419d-ba84-8b27d41c3b13",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "51327293-3def-46e1-b2ac-a3bdb57e3292",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "CreateQuestion",
+			"item": [
+				{
+					"name": "QuestionCategories",
+					"item": [
+						{
+							"name": "AddQuestion-AddSubject",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "223f3f23-e4eb-4d25-ac0a-5d33809be5d4",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.environment.set(\"qcId\", jsonData.qcId);\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e13536ac-ba76-4e21-9edc-746e61ac6bff",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"active\":\"Y\",\r\n    \"createdby\":10,\r\n    \"qcat\":\"Samplee\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/questionCategory"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-EditSubject",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8f36226-0c86-4f0d-8c0e-48e8d2da74ca",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "f7d2033f-e58a-4b09-9950-08d371c9c15e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"active\":\"Y\",\r\n    \"createdby\":10,\r\n    \"qcat\":\"Sample\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/updateQuestionCategory/5"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-DeleteSubject",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a27b6580-4a5e-489e-af80-d0fccaa756d6",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Get Bearer Token\", () => {\r",
+											"    const response = pm.response.json();\r",
+											"    pm.environment.set(\"bearerToken\", response.access_token);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "428891d1-5700-4bb1-947e-1a1552dba270",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "7c291ddf-8810-45f3-81e0-beb94f997ec9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"url": "http://192.168.1.30/OEADMINAPI/question/deleteQuestionCategory/5"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-AddTopic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "223f3f23-e4eb-4d25-ac0a-5d33809be5d4",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"qtTopic\", jsonData.qtTopic);\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "96bff552-f3f5-4633-8465-86057064f53b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"active\":\"Y\",\r\n    \"qcid\":1,\r\n    \"userid\":10,\r\n    \"qtopic\":\"Samplee\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestionTopics"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-EditTopic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3afa7bf0-6407-4b37-a5a1-24a3538fdb36",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "5ec5cc5b-52fa-4b06-a5c8-d7d5f1428015",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"active\":\"Y\",\r\n    \"qcid\":1,\r\n    \"qtopic\":\"Samplee\",\r\n    \"userid\":10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/updateTopicsById/20"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-DeleteTopic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "940a8123-1e69-424f-bb79-e8c6b1e734b2",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "6051bbce-82d2-4b0a-9a97-2b0e8fe6960c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"url": "http://192.168.1.30/OEADMINAPI/question/deleteByTopicId/20"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-AddQuestionType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "223f3f23-e4eb-4d25-ac0a-5d33809be5d4",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e39c80ca-c7ea-498d-a583-67a651573fee",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"active\":\"Y\",\r\n    \"createdby\":10,\r\n    \"qtype\":\"Sample\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addquestionType"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-EditQuestionType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "223f3f23-e4eb-4d25-ac0a-5d33809be5d4",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "03035456-6afa-4120-934d-fd107642f483",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"active\":\"Y\",\r\n    \"createdby\":10,\r\n    \"qtype\":\"Sample\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/updateQuestionType/7"
+							},
+							"response": []
+						},
+						{
+							"name": "AddQuestion-DeleteQuestionType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "223f3f23-e4eb-4d25-ac0a-5d33809be5d4",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "35505f26-2adb-4c2e-8993-8c845142b0a3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/deleteQuestionType/7"
+							},
+							"response": []
+						}
+					],
+					"id": "c8fd5105-c113-476d-ab01-1918d7616586"
+				},
+				{
+					"name": "Add Questions",
+					"item": [
+						{
+							"name": "EssayType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e9a005f4-b49a-4e36-b582-6fed07ca0d47",
+										"exec": [
+											"// pm.test(\"Status code is 200\", function () {\r",
+											"//     pm.response.to.have.status(200);\r",
+											"// });"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "61f52967-92ad-4a96-a509-960488a7fc4a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "qcat",
+											"value": "Artificial Intelligence",
+											"type": "text"
+										},
+										{
+											"key": "qtopic",
+											"value": "Block Chain",
+											"type": "text"
+										},
+										{
+											"key": "qtype",
+											"value": "Essay",
+											"type": "text"
+										},
+										{
+											"key": "qStatus",
+											"value": "A",
+											"type": "text"
+										},
+										{
+											"key": "qSourceType",
+											"value": "All",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "What is AI, and how does it differ from human intelligence?",
+											"type": "text"
+										},
+										{
+											"key": "qTime",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "qPoint",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "createdBy",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "answers[]",
+											"value": "Artificial Intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems. These processes include learning (the acquisition of information and rules for using the information), reasoning (using rules to reach approximate or definite conclusions) and self-correction.",
+											"type": "text"
+										},
+										{
+											"key": "qlevel",
+											"value": "Hard",
+											"type": "text"
+										},
+										{
+											"key": "noOfWords",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "ansLength",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "remarks",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestions"
+							},
+							"response": []
+						},
+						{
+							"name": "Fill In The Blank Type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4be24da5-9ffc-4450-be85-2bd76b0ad97f",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "472f23a9-d047-417d-baae-b8103e45d047",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "qcat",
+											"value": "Artificial Intelligence",
+											"type": "text"
+										},
+										{
+											"key": "qtype",
+											"value": "Fill in the Blanks",
+											"type": "text"
+										},
+										{
+											"key": "qlevel",
+											"value": "Hard",
+											"type": "text"
+										},
+										{
+											"key": "qStatus",
+											"value": "A",
+											"type": "text"
+										},
+										{
+											"key": "qtopic",
+											"value": "Block Chain",
+											"type": "text"
+										},
+										{
+											"key": "qSourceType",
+											"value": "All",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "AI can be used to analyze large amounts of data to identify patterns and trends. This process is known as __________",
+											"type": "text"
+										},
+										{
+											"key": "qTime",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "qPoint",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "createdBy",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "answers",
+											"value": "Data mining",
+											"type": "text"
+										},
+										{
+											"key": "explanation",
+											"value": "Data mining is a process of discovering patterns in large data sets involving methods at the intersection of machine learning, statistics and database systems.",
+											"type": "text"
+										},
+										{
+											"key": "noOfWords",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "ansLength",
+											"value": "25",
+											"type": "text"
+										},
+										{
+											"key": "remarks",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestions"
+							},
+							"response": []
+						},
+						{
+							"name": "Multiple Choice Type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bbe8384e-5d05-42b5-b771-43e3c235bc10",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9e097f1f-1b5d-4f80-b5ec-61c2b7492365",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "qcat",
+											"value": "Artificial Intelligence",
+											"type": "text"
+										},
+										{
+											"key": "qtype",
+											"value": "Multiple Choice",
+											"type": "text"
+										},
+										{
+											"key": "qlevel",
+											"value": "Medium",
+											"type": "text"
+										},
+										{
+											"key": "qStatus",
+											"value": "A",
+											"type": "text"
+										},
+										{
+											"key": "qtopic",
+											"value": "Block Chain",
+											"type": "text"
+										},
+										{
+											"key": "qSourceType",
+											"value": "All",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "Which of the following is NOT a core component of a neural network?",
+											"type": "text"
+										},
+										{
+											"key": "qTime",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "qPoint",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "createdBy",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "answers",
+											"value": "Neurons",
+											"type": "text"
+										},
+										{
+											"key": "answers",
+											"value": "Synapses",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "Processors",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "Neurons",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "Processors",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "board",
+											"type": "text"
+										},
+										{
+											"key": "explanation",
+											"value": "Neurons: The basic units of a neural network, processing information.\nSynapses: Connections between neurons that transmit information.",
+											"type": "text"
+										},
+										{
+											"key": "noOfWords",
+											"value": "400",
+											"type": "text"
+										},
+										{
+											"key": "ansLength",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "remarks",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestions"
+							},
+							"response": []
+						},
+						{
+							"name": "ShortAnswer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "24516022-c864-4467-b1c8-52e1a0373e74",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e4a5ffaa-911a-48f7-976c-a48ccfc5cf53",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestions"
+							},
+							"response": []
+						},
+						{
+							"name": "SingleChoice",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "576cf84b-c4fa-4064-909d-1ac0d4a121d0",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "4f25d74b-7264-4c0c-83b5-b8ff1e88e337",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "qcat",
+											"value": "Artificial Intelligence",
+											"type": "text"
+										},
+										{
+											"key": "qtype",
+											"value": "Single Choice",
+											"type": "text"
+										},
+										{
+											"key": "qlevel",
+											"value": "Medium",
+											"type": "text"
+										},
+										{
+											"key": "qStatus",
+											"value": "A",
+											"type": "text"
+										},
+										{
+											"key": "qtopic",
+											"value": "Block Chain",
+											"type": "text"
+										},
+										{
+											"key": "qSourceType",
+											"value": "All",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "Which of the following is NOT a core component of artificial intelligence?",
+											"type": "text"
+										},
+										{
+											"key": "qTime",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "qPoint",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "createdBy",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "answers",
+											"value": "Data",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "Algorithms",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "Data",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "Hardware",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "Software",
+											"type": "text"
+										},
+										{
+											"key": "explanation",
+											"value": "While data is essential for training and improving AI models, it's not a core component in the same way as algorithms, hardware, and software.",
+											"type": "text"
+										},
+										{
+											"key": "noOfWords",
+											"value": "400",
+											"type": "text"
+										},
+										{
+											"key": "ansLength",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "remarks",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestions"
+							},
+							"response": []
+						},
+						{
+							"name": "True/False Type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3cf725ca-ae10-45e4-88c9-29e40b323e83",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "837fa3f4-5fec-46cc-8bcc-6ed89847ebc0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "qcat",
+											"value": "Artificial Intelligence",
+											"type": "text"
+										},
+										{
+											"key": "qtype",
+											"value": "True/False",
+											"type": "text"
+										},
+										{
+											"key": "qlevel",
+											"value": "Hard",
+											"type": "text"
+										},
+										{
+											"key": "qStatus",
+											"value": "A",
+											"type": "text"
+										},
+										{
+											"key": "qtopic",
+											"value": "Block Chain",
+											"type": "text"
+										},
+										{
+											"key": "qSourceType",
+											"value": "All",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "Machine Learning models require a large amount of labeled data to train effectively.",
+											"type": "text"
+										},
+										{
+											"key": "qTime",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "qPoint",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "createdBy",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "answers",
+											"value": "True",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "True",
+											"type": "text"
+										},
+										{
+											"key": "choices",
+											"value": "False",
+											"type": "text"
+										},
+										{
+											"key": "explanation",
+											"value": "Labeled data provides the model with examples of correct outputs for given inputs, allowing it to learn patterns and make accurate predictions.",
+											"type": "text"
+										},
+										{
+											"key": "noOfWords",
+											"value": "400",
+											"type": "text"
+										},
+										{
+											"key": "ansLength",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "remarks",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestions"
+							},
+							"response": []
+						}
+					],
+					"id": "50b813d1-8bdb-441f-99ff-9e4660d94dc0"
+				},
+				{
+					"name": "File Handling",
+					"item": [
+						{
+							"name": "Upload Files",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e9a005f4-b49a-4e36-b582-6fed07ca0d47",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// Fixing the 'Extract and Set Iqb' test\r",
+											"pm.test(\"Extract and Set Iqb\", () => {\r",
+											"    const jsonData = pm.response.json();\r",
+											"\r",
+											"    // Check if the necessary objects and arrays exist before accessing the property\r",
+											"    if (jsonData && jsonData.someObject && jsonData.someObject.someArray && jsonData.someObject.someArray.length > 0) {\r",
+											"        const iqbValue = jsonData.someObject.someArray[0].Iqb;\r",
+											"\r",
+											"        // Check if iqbValue is a valid number\r",
+											"        if (typeof iqbValue === \"number\") {\r",
+											"            pm.environment.set(\"Iqb\", iqbValue);\r",
+											"            console.log(\"Iqb value set successfully:\", iqbValue);\r",
+											"        } else {\r",
+											"            console.error(\"Iqb value is not a number:\", iqbValue);\r",
+											"            // Handle the error, e.g., throw an error or log a warning\r",
+											"        }\r",
+											"    } else {\r",
+											"        console.error(\"Required object or array does not exist\");\r",
+											"        // Handle the error, e.g., throw an error or log a warning\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "dbb3d4a7-12c8-431e-810e-565da94f5de9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "qcat",
+											"value": "Artificial Intelligence",
+											"type": "text"
+										},
+										{
+											"key": "qtopic",
+											"value": "Block Chain",
+											"type": "text"
+										},
+										{
+											"key": "qtype",
+											"value": "Essay",
+											"type": "text"
+										},
+										{
+											"key": "qStatus",
+											"value": "A",
+											"type": "text"
+										},
+										{
+											"key": "qSourceType",
+											"value": "All",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "What is AI, and how does it differ from human intelligence?",
+											"type": "text"
+										},
+										{
+											"key": "qTime",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "qPoint",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "createdBy",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "answers[]",
+											"value": "Artificial Intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems. These processes include learning (the acquisition of information and rules for using the information), reasoning (using rules to reach approximate or definite conclusions) and self-correction.",
+											"type": "text"
+										},
+										{
+											"key": "qlevel",
+											"value": "Hard",
+											"type": "text"
+										},
+										{
+											"key": "noOfWords",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "ansLength",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "remarks",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "sourceFilepaths[]",
+											"type": "file",
+											"fileNotInWorkingDirectoryWarning": "This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.",
+											"filesNotInWorkingDirectory": [
+												"/C:/Users/thirumaran/OneDrive/Pictures/sports-car-burning-explosion-digital-art-4k-wallpaper-uhdpaper.com-536@0@i.jpg"
+											],
+											"src": "/C:/Users/thirumaran/OneDrive/Pictures/sports-car-burning-explosion-digital-art-4k-wallpaper-uhdpaper.com-536@0@i.jpg"
+										},
+										{
+											"key": "sourceFilepaths[]",
+											"type": "file",
+											"fileNotInWorkingDirectoryWarning": "This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.",
+											"filesNotInWorkingDirectory": [
+												"/C:/Users/thirumaran/Downloads/file_example_MP3_700KB.mp3"
+											],
+											"src": "/C:/Users/thirumaran/Downloads/file_example_MP3_700KB.mp3"
+										},
+										{
+											"key": "sourceFilepaths[]",
+											"type": "file",
+											"src": "/C:/Users/thirumaran/Downloads/file_example_MP4_480_1_5MG.mp4"
+										}
+									]
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/addQuestions"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Files",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6f35c594-fd23-4fd7-97c3-256d6616db9b",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "64aa8d12-9ee1-488b-96ff-cc5ae18b68f0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/question/deleteFilesByName?qid=118&filename=sports_car_burning_explosion_digital_art_4k_wallpaper_uhdpaper_com_536_0_i.jpg",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"question",
+										"deleteFilesByName"
+									],
+									"query": [
+										{
+											"key": "qid",
+											"value": "118"
+										},
+										{
+											"key": "filename",
+											"value": "sports_car_burning_explosion_digital_art_4k_wallpaper_uhdpaper_com_536_0_i.jpg"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "3f8c9e09-0097-4530-8da0-ad8f9d532cfd"
+				},
+				{
+					"name": "Edit Question",
+					"item": [
+						{
+							"name": "Update Question",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e0e25ace-0ded-4917-af33-7aad17a28979",
+										"exec": [
+											"// pm.test(\"Response time is less than 200ms\", function () {\r",
+											"//     pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"// });"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "076c13ab-dced-4036-ad85-6e4e290804b0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"qcat\": \"Data Science\",\r\n    \"qtopic\": \"Machine Learnings\",\r\n    \"createdBy\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/question/updateQuestions/117"
+							},
+							"response": []
+						}
+					],
+					"id": "e2ed56db-7bb2-4af0-a168-a4cedde6d5b8"
+				},
+				{
+					"name": "Status Check",
+					"item": [
+						{
+							"name": "All",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7ab4351f-24d6-41b2-9c9b-9ddfbf813825",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "c0ecf645-e314-4fa0-b152-139c2834541e",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "eae5dee5-1d71-478c-927c-216cb508c898",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/question/getQuestions/10?searchTerm=&Active=&category=&page=1",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"question",
+										"getQuestions",
+										"10"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": ""
+										},
+										{
+											"key": "Active",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Active",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6139965d-b3fd-42fb-ba18-77825b1828bf",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2dfb50e4-f722-4b9d-a3d7-3c553d4966b7",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "ed1dc2cd-81a1-4aa0-ad5b-9ffab293cf35",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/question/getQuestions/10?searchTerm=&Active=A&category=&page=1",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"question",
+										"getQuestions",
+										"10"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": ""
+										},
+										{
+											"key": "Active",
+											"value": "A"
+										},
+										{
+											"key": "category",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Inactive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c4e5a727-feea-4b13-af76-85d776012711",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "0d448696-53ba-4191-bff9-a6c4502373c3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/question/getQuestions/10?searchTerm=&Active=I&category=&page=1",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"question",
+										"getQuestions",
+										"10"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": ""
+										},
+										{
+											"key": "Active",
+											"value": "I"
+										},
+										{
+											"key": "category",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "448f93f1-f98c-4347-b7a9-988ffc6404f0"
+				},
+				{
+					"name": "Filter Check",
+					"item": [
+						{
+							"name": "All",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5074f4ff-c9f8-46ef-88a4-a1dd390d7df1",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "7637e668-b952-4796-885d-d9bfb9b42d12",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/question/getQuestions/10?searchTerm=&Active=&category=&page=1",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"question",
+										"getQuestions",
+										"10"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": ""
+										},
+										{
+											"key": "Active",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Artificial Intelligence",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8f58fd75-117e-49c2-964e-4548fa2803b7",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "60ca167e-0b77-4b35-94da-df541313219a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/question/getQuestions/10?searchTerm=&Active=&category=1&page=1",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"question",
+										"getQuestions",
+										"10"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": ""
+										},
+										{
+											"key": "Active",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": "1"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "00d4d2c0-9075-411e-8966-75481268d4b9"
+				},
+				{
+					"name": "Search Check",
+					"item": [
+						{
+							"name": "Search Question",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0ff7e82d-a0ad-4702-b67e-3080684c18d3",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "46b01757-c196-467a-95de-64258246c68b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/question/getQuestions/10?searchTerm=Machine Learning&Active=&category=&page=1",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"question",
+										"getQuestions",
+										"10"
+									],
+									"query": [
+										{
+											"key": "searchTerm",
+											"value": "Machine Learning"
+										},
+										{
+											"key": "Active",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": ""
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "937bab96-32b3-4893-beda-c4628533f936"
+				},
+				{
+					"name": "Get All Questions",
+					"item": [
+						{
+							"name": "GetQuestions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c9b78ef9-c934-42f4-947c-ead1634300af",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6975e9b4-db57-4e45-a13f-f30390a7da4e",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "3cd851f2-3b88-4338-a751-1b03a8b73cd8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://192.168.1.30/OEADMINAPI/question/getquestionCategories"
+							},
+							"response": []
+						}
+					],
+					"id": "3abd0ae8-9e41-45c0-b77a-621523d1ff63"
+				}
+			],
+			"id": "faa9b11c-4666-4a25-8be8-82cc7f036d52",
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2MxOGMyYWY5MTZjMTlhMmRmYmYyNyIsImlhdCI6MTczMTk5MTc0NiwiZXhwIjoxNzMyMTY0NTQ2fQ.APiOkXWeBLJyLgjviua87PC4_0got4_YaBcP43sw18Q"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "811ea899-feec-49b5-8cb7-acc60fa7090b",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "25502a56-9c40-4bb3-b9ac-48d4d252a0d3",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Test Setup",
+			"item": [
+				{
+					"name": "New Test",
+					"item": [
+						{
+							"name": "Basic Settings",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "070c58a2-ed9c-4d66-9eb1-8c69d035f888",
+										"exec": [
+											"var random = Math.floor(Math.random() * 100) + 1;\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"random\",random);\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3fb6690c-d33c-4317-8768-471f193ef4a0",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "8fe1c116-c2ae-4091-a99d-05ee1a8800c3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"candidatesperproctor\": \"9\",\r\n    \"flag\": \"BS\",\r\n    \"testcategory\": 1,\r\n    \"testlevel\": 1,\r\n    \"testname\": \"Testing sample-1\",\r\n    \"userId\": 10,\r\n    \"description\": \"Test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/testsetupcategory"
+							},
+							"response": []
+						},
+						{
+							"name": "Question Manager",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7b9b9552-e0e3-4f46-a0b7-ad873146f88b",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "900edf0b-8251-419e-a4af-a8bcfac58906",
+										"exec": [],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "9e418329-8499-424b-81cd-76f214e01b47",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"category\":1,\r\n    \"flag\":\"QM\",\r\n    \"noofquestions\":10,\r\n    \"overallscore\":100,\r\n    \"testid\":53,\r\n    \"topics\":[{\"id\": 1, \"TopicId\": 2, \"topic\": \"Block Chain\", \"Hours\": 20, \"Minutes\": 0, \"NoofQnintopic\": 10, \"TopicScore\": 100}],\r\n    \"userid\":10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestQuestionSetup"
+							},
+							"response": []
+						},
+						{
+							"name": "Time Setup",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8d95c1d6-6ead-40fd-8238-cdad539d1677",
+										"exec": [
+											"function generateRandomFutureDateTime() {\r",
+											"  const now = new Date();\r",
+											"  const futureDate = new Date(now.getTime() + Math.random() * 31536000000); // Add up to 1 year\r",
+											"  futureDate.setMilliseconds(0); // Set milliseconds to 0\r",
+											"\r",
+											"  const year = futureDate.getFullYear();\r",
+											"  const month = (futureDate.getMonth() + 1).toString().padStart(2, '0');\r",
+											"  const day = futureDate.getDate().toString().padStart(2, '0');\r",
+											"  const hours = futureDate.getHours().toString().padStart(2, '0');\r",
+											"  const minutes = futureDate.getMinutes().toString().padStart(2, '0');\r",
+											"  const seconds = futureDate.getSeconds().toString().padStart(2, '0');\r",
+											"\r",
+											"  const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;\r",
+											"  return formattedDateTime;\r",
+											"}\r",
+											"\r",
+											"const randomFutureDateTime = generateRandomFutureDateTime();\r",
+											"console.log(randomFutureDateTime);\r",
+											"\r",
+											"\r",
+											"pm.variables.set(\"randomFutureDateTime\", generateRandomFutureDateTime());\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "20991645-4854-4484-95bf-ea877e46ba55",
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "24caa4e5-bfae-48fb-a450-ce4037acdbdf",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"activationdateutc\": \"{{randomFutureDateTime}}\",\r\n    \"flag\": \"TS\",\r\n    \"hours\": \"20\",\r\n    \"minutes\": \"00\",\r\n    \"testid\": 12,\r\n    \"userid\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestTimeSetup"
+							},
+							"response": []
+						},
+						{
+							"name": "Test Access",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "033f020a-6fed-4486-9e01-265b4f8acb49",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "bf8b6a57-9998-4991-9e1d-662c06d4123f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\r\n\"candidateemail\":\"vignesh.murugan@sankarasoftware.com\",\r\n\"cuserid\":8,\r\n\"emailstatus\":null,\r\n\"examStatus\":\"R\",\r\n\"phnumber\":\"8098911086\",\r\n\"proctor\":9,\r\n\"testid\":17,\r\n\"userid\":10\r\n},\r\n{\r\n \"candidateemail\":\"dinesh@sankarasoftware.com\",\r\n\"cuserid\":9,\r\n\"emailstatus\":null,\r\n\"examStatus\":\"R\",\r\n\"phnumber\":\"4576347568\",\r\n\"proctor\":9,\r\n\"testid\":17,\r\n\"userid\":10   \r\n}]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestAccessSetup/17/TA"
+							},
+							"response": []
+						},
+						{
+							"name": "Grading Setup",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "42198174-19d3-41cd-a9be-b21e5659a073",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "084a25fe-7a47-41f9-845d-5ae8356e53ae",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzZlYmYwYTNmM2Q0Zjk2MDRjNDc3YyIsImlhdCI6MTczMTY1MjU5MiwiZXhwIjoxNzMxODI1MzkyfQ.g3o2Bq02VRVUT9Bydq29uSraH80446kTVmp8aoUPHPc"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"flag\": \"GS\",\r\n    \"passmark\": \"50\",\r\n    \"passunit\": \"PR\",\r\n    \"range\": [\r\n        {\r\n            \"start\": \"100\",\r\n            \"end\": \"91\",\r\n            \"grade\": \"s\"\r\n        },\r\n        {\r\n            \"start\": \"81\",\r\n            \"end\": \"90\",\r\n            \"grade\": \"a\"\r\n        },\r\n        {\r\n            \"start\": \"71\",\r\n            \"end\": \"80\",\r\n            \"grade\": \"B\"\r\n        }\r\n    ],\r\n    \"rangeunit\": \"PR\",\r\n    \"resultflags\": \"Y\",\r\n    \"testendmessage\": \"Thank you for taking the test!\",\r\n    \"testfail\": \"Your score was too low to pass this test!\",\r\n    \"testid\": 17,\r\n    \"testsuccess\": \"Congratulations on passing the test!\",\r\n    \"userId\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestGradeSetup"
+							},
+							"response": []
+						},
+						{
+							"name": "Certificate Setup",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "79dc36b6-662e-4f2a-b1d4-5e9d5a119afd",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "577f906a-27b2-4010-8034-e918e52041f6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"certificate_Content\": \"Y\",\r\n    \"firstNameAndLastName\": \"Y\",\r\n    \"flag\": \"CT\",\r\n    \"footNote\": \"Y\",\r\n    \"grade\": \"Y\",\r\n    \"logo\": \"Y\",\r\n    \"percentage\": \"Y\",\r\n    \"pointsScore\": \"Y\",\r\n    \"signature1\": \"Y\",\r\n    \"signature2\": \"Y\",\r\n    \"subtitle\": \"Y\",\r\n    \"testid\": 17,\r\n    \"userid\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestCertificateSetup"
+							},
+							"response": []
+						}
+					],
+					"id": "39565755-6890-4824-8e47-f8aed85aee7b"
+				},
+				{
+					"name": "Edit Test",
+					"item": [
+						{
+							"name": "Basic Settings",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "070c58a2-ed9c-4d66-9eb1-8c69d035f888",
+										"exec": [
+											"var random = Math.floor(Math.random() * 100) + 1;\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"random\",random);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "8585cb08-dd71-40a8-a218-c86fc6503739",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "4feacf51-e20e-4449-b018-f54b97fc1efd",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzZlYmYwYTNmM2Q0Zjk2MDRjNDc3YyIsImlhdCI6MTczMTY1MjU5MiwiZXhwIjoxNzMxODI1MzkyfQ.g3o2Bq02VRVUT9Bydq29uSraH80446kTVmp8aoUPHPc"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"candidatesperproctor\": \"9\",\r\n    \"flag\": \"BS\",\r\n    \"testcategory\": 1,\r\n    \"testlevel\": 1,\r\n    \"testname\": \"Testing sample\",\r\n    \"userId\": 10,\r\n    \"description\": \"Test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/updateTestSetupCategoryById/17"
+							},
+							"response": []
+						},
+						{
+							"name": "Question Manager",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "278ef9eb-d92a-425c-b49f-ac03ba08027f",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "02d0d2ae-642e-47e5-b026-30ac5d690027",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"category\":1,\r\n    \"flag\":\"QM\",\r\n    \"noofquestions\":10,\r\n    \"overallscore\":100,\r\n    \"testid\":12,\r\n    \"topics\":[{\"id\": 1, \"TopicId\": 2, \"topic\": \"Block Chain\", \"Hours\": 20, \"Minutes\": 0, \"NoofQnintopic\": 10, \"TopicScore\": 100}],\r\n    \"userid\":10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestQuestionSetup"
+							},
+							"response": []
+						},
+						{
+							"name": "Time Setup",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8d95c1d6-6ead-40fd-8238-cdad539d1677",
+										"exec": [
+											"function generateRandomFutureDateTime() {\r",
+											"  const now = new Date();\r",
+											"  const futureDate = new Date(now.getTime() + Math.random() * 31536000000); // Add up to 1 year\r",
+											"  futureDate.setMilliseconds(0); // Set milliseconds to 0\r",
+											"\r",
+											"  const year = futureDate.getFullYear();\r",
+											"  const month = (futureDate.getMonth() + 1).toString().padStart(2, '0');\r",
+											"  const day = futureDate.getDate().toString().padStart(2, '0');\r",
+											"  const hours = futureDate.getHours().toString().padStart(2, '0');\r",
+											"  const minutes = futureDate.getMinutes().toString().padStart(2, '0');\r",
+											"  const seconds = futureDate.getSeconds().toString().padStart(2, '0');\r",
+											"\r",
+											"  const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;\r",
+											"  return formattedDateTime;\r",
+											"}\r",
+											"\r",
+											"const randomFutureDateTime = generateRandomFutureDateTime();\r",
+											"console.log(randomFutureDateTime);\r",
+											"\r",
+											"\r",
+											"pm.variables.set(\"randomFutureDateTime\", generateRandomFutureDateTime());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ce1bf43d-1fe5-4e15-9c5f-b051167e12b1",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "67370e85-5971-43f0-b9e7-5f12e061c37a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"activationdateutc\": \"{{randomFutureDateTime}}\",\r\n    \"flag\": \"TS\",\r\n    \"hours\": \"20\",\r\n    \"minutes\": \"00\",\r\n    \"testid\": 12,\r\n    \"userid\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestTimeSetup"
+							},
+							"response": []
+						},
+						{
+							"name": "Test Access",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "10f81cbd-03ef-41cd-bab4-326846594fbf",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "45b63c06-6c49-48bf-a531-8a4fb6c46eb6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[{\r\n\"candidateemail\":\"vignesh.murugan@sankarasoftware.com\",\r\n\"cuserid\":8,\r\n\"emailstatus\":null,\r\n\"examStatus\":\"R\",\r\n\"phnumber\":\"8098911086\",\r\n\"proctor\":9,\r\n\"testid\":17,\r\n\"userid\":10\r\n},\r\n{\r\n \"candidateemail\":\"dinesh@sankarasoftware.com\",\r\n\"cuserid\":9,\r\n\"emailstatus\":null,\r\n\"examStatus\":\"R\",\r\n\"phnumber\":\"4576347568\",\r\n\"proctor\":9,\r\n\"testid\":17,\r\n\"userid\":10   \r\n}]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestAccessSetup/17/TA"
+							},
+							"response": []
+						},
+						{
+							"name": "Grading Setup",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9a3fa5e7-d590-4a08-be5e-4aad07588be6",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "742f40ba-9381-4a4a-b9ed-b040fe77cd44",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzZlYmYwYTNmM2Q0Zjk2MDRjNDc3YyIsImlhdCI6MTczMTY1MjU5MiwiZXhwIjoxNzMxODI1MzkyfQ.g3o2Bq02VRVUT9Bydq29uSraH80446kTVmp8aoUPHPc"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"flag\": \"GS\",\r\n    \"passmark\": \"50\",\r\n    \"passunit\": \"PR\",\r\n    \"range\": [\r\n        {\r\n            \"start\": \"100\",\r\n            \"end\": \"91\",\r\n            \"grade\": \"s\"\r\n        },\r\n        {\r\n            \"start\": \"81\",\r\n            \"end\": \"90\",\r\n            \"grade\": \"a\"\r\n        },\r\n        {\r\n            \"start\": \"71\",\r\n            \"end\": \"80\",\r\n            \"grade\": \"B\"\r\n        }\r\n    ],\r\n    \"rangeunit\": \"PR\",\r\n    \"resultflags\": \"Y\",\r\n    \"testendmessage\": \"Thank you for taking the test!\",\r\n    \"testfail\": \"Your score was too low to pass this test!\",\r\n    \"testid\": 17,\r\n    \"testsuccess\": \"Congratulations on passing the test!\",\r\n    \"userId\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestGradeSetup"
+							},
+							"response": []
+						},
+						{
+							"name": "Certificate Setup",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "185dbf10-dd25-4187-b29a-28c04949bf62",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "28af7909-4570-4585-8aab-a40313ba75e6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"certificate_Content\": \"Y\",\r\n    \"firstNameAndLastName\": \"Y\",\r\n    \"flag\": \"CT\",\r\n    \"footNote\": \"Y\",\r\n    \"grade\": \"Y\",\r\n    \"logo\": \"Y\",\r\n    \"percentage\": \"Y\",\r\n    \"pointsScore\": \"Y\",\r\n    \"signature1\": \"Y\",\r\n    \"signature2\": \"Y\",\r\n    \"subtitle\": \"Y\",\r\n    \"testid\": 17,\r\n    \"userid\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.1.30/OEADMINAPI/testSetup/createTestCertificateSetup"
+							},
+							"response": []
+						}
+					],
+					"id": "0ab90353-6ea9-44a4-9bde-b7d48e4b3fe1"
+				},
+				{
+					"name": "Filter Check",
+					"item": [
+						{
+							"name": "Search Filter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "61a8ad30-c7b6-4551-a511-5ce92e585038",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "65328783-e20c-4d9d-afe3-92b4deb068df",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/testSetup/getTestSetupCategory/10?search=Cybersecurity&flag=&category=",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"testSetup",
+										"getTestSetupCategory",
+										"10"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "Cybersecurity"
+										},
+										{
+											"key": "flag",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Status-All",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d5e3b954-6a38-424d-9f25-b131a679f27e",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d8c76dd1-b6f1-42b9-bc57-55cd8bf0d601",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "search",
+											"value": "Cybersecurity",
+											"type": "text"
+										},
+										{
+											"key": "flag",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/testSetup/getTestSetupCategory/10?search=&flag=&category=",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"testSetup",
+										"getTestSetupCategory",
+										"10"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": ""
+										},
+										{
+											"key": "flag",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Status-In Progress",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bc2924c3-584f-4e9a-8dac-b50918d50657",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "497cdaa7-218c-4129-8ed5-85859d49d5d8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "search",
+											"value": "Cybersecurity",
+											"type": "text"
+										},
+										{
+											"key": "flag",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/testSetup/getTestSetupCategory/10?search=&flag=In Progress&category=",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"testSetup",
+										"getTestSetupCategory",
+										"10"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": ""
+										},
+										{
+											"key": "flag",
+											"value": "In Progress"
+										},
+										{
+											"key": "category",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Status-Completed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "27e6dc89-fcaf-47c1-b061-ddc21bd2a57e",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "6c1df35d-666f-4f70-a1b9-79cca6aee225",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "search",
+											"value": "Cybersecurity",
+											"type": "text"
+										},
+										{
+											"key": "flag",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/testSetup/getTestSetupCategory/10?search=&flag=Completed&category=",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"testSetup",
+										"getTestSetupCategory",
+										"10"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": ""
+										},
+										{
+											"key": "flag",
+											"value": "Completed"
+										},
+										{
+											"key": "category",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Topic-Artificial Intelligence",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "936514e5-1006-42b7-8c4c-f4387edc8702",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9f780d17-11ad-4a7c-a2a9-bd70c5b6e097",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "search",
+											"value": "Cybersecurity",
+											"type": "text"
+										},
+										{
+											"key": "flag",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/testSetup/getTestSetupCategory/10?search=&flag=&category=1",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"testSetup",
+										"getTestSetupCategory",
+										"10"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": ""
+										},
+										{
+											"key": "flag",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Topic-Cryptography",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "72b02f07-9edd-4d19-b040-b1a40f7661bf",
+										"exec": [
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "a2f44f22-041a-4b4b-bfc6-1fd51ebc9826",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "search",
+											"value": "Cybersecurity",
+											"type": "text"
+										},
+										{
+											"key": "flag",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://192.168.1.30/OEADMINAPI/testSetup/getTestSetupCategory/10?search=&flag=&category=3",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"1",
+										"30"
+									],
+									"path": [
+										"OEADMINAPI",
+										"testSetup",
+										"getTestSetupCategory",
+										"10"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": ""
+										},
+										{
+											"key": "flag",
+											"value": ""
+										},
+										{
+											"key": "category",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "48109de7-8e72-4ac0-8371-983d68391e6d"
+				}
+			],
+			"id": "7122ad0c-19a5-4ac2-8a8d-322213e9e3f1"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDk0ODJkYWYwYWVkNjg3YzRhYzNjNiIsImlhdCI6MTczMjg1NTg1MywiZXhwIjoxNzMzMDI4NjUzfQ.ensKQjToL8RXBvye0XW2Bqjf-9RGOQ5MceWygIeMyw0"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5f55e6e3-c8a3-4614-93ba-d5a918772483",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "eff20bf2-9daa-411d-a7e9-c30abbd71c48",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
